@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=javax.persistence.jar -DgroupId=javax.persistence -DartifactId=persistence -Dversion=2.1.0 -Dpackaging=jar
