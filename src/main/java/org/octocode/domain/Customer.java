@@ -3,8 +3,10 @@ package org.octocode.domain;
 import org.springframework.util.Assert;
 
 import javax.persistence.Column;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
+@XmlRootElement
 @javax.persistence.Entity
 public class Customer extends Entity implements Serializable {
     private String firstname, lastname;

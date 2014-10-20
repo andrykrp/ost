@@ -1,7 +1,9 @@
 package org.octocode.domain;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
+@XmlRootElement
 @javax.persistence.Entity
 public class Tag extends Entity implements Serializable {
     private String name;

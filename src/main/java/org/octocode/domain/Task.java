@@ -8,13 +8,18 @@ import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+@XmlRootElement
 @javax.persistence.Entity
 public class Task extends Entity implements Serializable {
+
+    public final static Task BLANK = new Task();
+
     private String name, description;
     private Integer rating;
     private Customer author;
@@ -84,13 +89,13 @@ public class Task extends Entity implements Serializable {
         return (name == null ? "" : String.format("%s - ", name)) + description;
     }
 
-    public String getJSON() throws JSONException {
-        JSONObject json = new JSONObject();
-        json.put("name", name);
-        json.put("description", description);
-        json.put("rating", rating);
-        json.put("tags", tags);
-
-        return json.toString();
-    }
+//    public String getJSON() throws JSONException {
+//        JSONObject json = new JSONObject();
+//        json.put("name", name);
+//        json.put("description", description);
+//        json.put("rating", rating);
+//        json.put("tags", tags);
+//
+//        return json.toString();
+//    }
 }
