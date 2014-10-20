@@ -3,10 +3,10 @@ package org.octocode.domain;
 import org.springframework.util.Assert;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
+import java.io.Serializable;
 
-@Entity
-public class Customer extends AbstractEntity {
+@javax.persistence.Entity
+public class Customer extends Entity implements Serializable {
     private String firstname, lastname;
     @Column(unique = true)
     private Email email;

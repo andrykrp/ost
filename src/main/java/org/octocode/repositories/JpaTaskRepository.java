@@ -11,26 +11,26 @@ import javax.persistence.TypedQuery;
 @Repository
 public class JpaTaskRepository implements TaskRepository {
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
 
     @Override
     public Task findOne(Long id) {
-        return em.find(Task.class, id);
+        return entityManager.find(Task.class, id);
     }
 
     @Override
     public Task save(Task task) {
         if (task.getId() == null) {
-            em.persist(task);
+            entityManager.persist(task);
             return task;
         } else {
-            return em.merge(task);
+            return entityManager.merge(task);
         }
     }
 
     @Override
     public Task findByEmailAuthor(Customer author) {
-        TypedQuery<Task> query = em.createQuery("select t from Task t where t.author = :author", Task.class);
+        TypedQuery<Task> query = entityManager.createQuery("select t from Task t where t.author = :author", Task.class);
         query.setParameter("author", author);
         return query.getSingleResult();
     }

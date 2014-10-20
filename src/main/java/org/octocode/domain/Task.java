@@ -2,14 +2,14 @@ package org.octocode.domain;
 
 import org.springframework.util.Assert;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Task extends AbstractEntity {
+@javax.persistence.Entity
+public class Task extends Entity implements Serializable {
     private String name, description;
     private Integer rating;
     private Customer author;

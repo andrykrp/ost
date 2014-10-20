@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public class AbstractEntity {
+public class Entity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -23,7 +23,7 @@ public class AbstractEntity {
         if (this.id == null || obj == null || !(this.getClass().equals(obj.getClass()))) {
             return false;
         }
-        AbstractEntity that = (AbstractEntity) obj;
+        Entity that = (Entity) obj;
         return this.id.equals(that.getId());
     }
 

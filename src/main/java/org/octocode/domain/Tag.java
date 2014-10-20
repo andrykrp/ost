@@ -1,6 +1,9 @@
 package org.octocode.domain;
 
-public class Tag extends AbstractEntity {
+import java.io.Serializable;
+
+@javax.persistence.Entity
+public class Tag extends Entity implements Serializable {
     private String name;
     private Boolean hidden = false, active = true, top = false;
 
