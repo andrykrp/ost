@@ -1,8 +1,13 @@
 package org.octocode.domain;
 
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 import org.springframework.util.Assert;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,16 +19,22 @@ public class Task extends Entity implements Serializable {
     private Integer rating;
     private Customer author;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "task_id")
     private Set<Tag> tags = new HashSet<Tag>();
 
+    protected Task() {
+    }
+
     public Task(String description) {
-        Assert.hasText(description, "Street must not be null or empty!");
+        Assert.hasText(description, "Description must not be null or empty!");
         this.description = description;
     }
 
-    protected Task() {
+    public Task(String name, String description, Integer rating) {
+        this.name = name;
+        this.description = description;
+        this.rating = rating;
     }
 
     public void add(Tag tag) {
@@ -66,5 +77,20 @@ public class Task extends Entity implements Serializable {
 
     public void setRating(Integer rating) {
         this.rating = rating;
+    }
+
+    @Override
+    public String toString() {
+        return (name == null ? "" : String.format("%s - ", name)) + description;
+    }
+
+    public String getJSON() throws JSONException {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("description", description);
+        json.put("rating", rating);
+        json.put("tags", tags);
+
+        return json.toString();
     }
 }

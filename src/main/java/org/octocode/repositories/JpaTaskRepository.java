@@ -3,6 +3,7 @@ package org.octocode.repositories;
 import org.octocode.domain.Customer;
 import org.octocode.domain.Task;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,9 +20,11 @@ public class JpaTaskRepository implements TaskRepository {
     }
 
     @Override
+    @Transactional
     public Task save(Task task) {
         if (task.getId() == null) {
             entityManager.persist(task);
+            entityManager.flush();
             return task;
         } else {
             return entityManager.merge(task);

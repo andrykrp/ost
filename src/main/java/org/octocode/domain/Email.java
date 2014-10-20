@@ -1,10 +1,10 @@
 package org.octocode.domain;
 
-import java.util.regex.Pattern;
+import org.springframework.util.Assert;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-
-import org.springframework.util.Assert;
+import java.util.regex.Pattern;
 
 @Embeddable
 public class Email {

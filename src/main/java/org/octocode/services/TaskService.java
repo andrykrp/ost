@@ -21,7 +21,9 @@ public class TaskService {
     @Produces(MediaType.APPLICATION_JSON)
     public String getIt() throws JSONException {
         JSONObject json = new JSONObject();
-        json.put("key", repository.findOne(0l));
+        json.put("t1", repository.findOne(4l).getJSON());
+        json.put("t2", repository.findOne(7l).getJSON());
+        json.put("t3", repository.findOne(9l).getJSON());
         json.put("value", "3");
         return json.toString();
     }
