@@ -1,7 +1,5 @@
 package org.octocode.domain;
 
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
 import org.springframework.util.Assert;
 
 import javax.persistence.CascadeType;

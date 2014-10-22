@@ -1,14 +1,11 @@
 package org.octocode.repositories;
 
-import org.octocode.domain.Customer;
+import org.octocode.domain.Tag;
 import org.octocode.domain.Task;
 import org.springframework.data.repository.Repository;
 
-public interface TaskRepository extends Repository<Task, Long> {
-    Task findOne(Long id);
+import java.util.List;
 
-    Task save(Task task);
-
-    Task findByEmailAuthor(Customer author);
-
+public interface TaskRepository extends Repository<Task, Long>, TaskRepositoryCustom {
+    List<Task> findByTagsNameIn(List<String> tags);
 }
