@@ -14,6 +14,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Path("task")
@@ -34,7 +35,7 @@ public class TaskService {
     @POST
     @Path("filter")
     public List<Task> getTasks(@QueryParam("tag") List<String> tags, @QueryParam("order") List<String> orders) throws JSONException {
-        List<Task> list = repository.findByTagsNameIn(tags);
+        List<Task> list = repository.findByTags(tags);
         return list == null ? new ArrayList<Task>() : list;
     }
 }

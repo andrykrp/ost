@@ -9,10 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 import java.util.List;
+import java.util.Set;
 
 public class TaskRepositoryImpl implements TaskRepositoryCustom {
     @PersistenceContext
@@ -42,12 +43,26 @@ public class TaskRepositoryImpl implements TaskRepositoryCustom {
         return query.getSingleResult();
     }
 
-//    @Override
-//    public List<Task> findByTags(List<Tag> tags, List<String> orders) {
-//        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-//        CriteriaQuery<Task> cq = cb.createQuery(Task.class);
-//        Root<Task> t = cq.from(Task.class);
-//        cq.select(t).where(t.get("tags").in(tags));
-//        return entityManager.createQuery(cq).getResultList();
-//    }
+    @Override
+    public List<Task> findByTags(List<String> tags) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Task> criteriaQuery = criteriaBuilder.createQuery(Task.class);
+
+        Metamodel metamodel = entityManager.getMetamodel();
+        EntityType<Task> entityType = metamodel.entity(Task.class);
+        Root<Task> taskRoot = criteriaQuery.from(entityType);
+        criteriaQuery.select(taskRoot);
+
+        SetJoin<Task, Tag> join = taskRoot.joinSet("tags", JoinType.INNER);
+        criteriaQuery.where(
+                criteriaBuilder.in(join.get("name")).value(tags)
+        );
+
+        criteriaQuery.groupBy(taskRoot.get("id"));
+        criteriaQuery.having(criteriaBuilder.equal(criteriaBuilder.count(taskRoot), tags.size()));
+
+        TypedQuery<Task> typedQuery = entityManager.createQuery(criteriaQuery);
+
+        return typedQuery.getResultList();
+    }
 }

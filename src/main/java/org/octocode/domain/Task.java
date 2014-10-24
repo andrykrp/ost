@@ -2,10 +2,7 @@ package org.octocode.domain;
 
 import org.springframework.util.Assert;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Collections;
@@ -22,9 +19,9 @@ public class Task extends Entity implements Serializable {
     private Integer rating;
     private Customer author;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "task_id")
-    private Set<Tag> tags = new HashSet<Tag>();
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "task_id")
+    private Set<Tag> tags = new HashSet<>();
 
     protected Task() {
     }
