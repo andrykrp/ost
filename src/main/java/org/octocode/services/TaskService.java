@@ -24,6 +24,15 @@ public class TaskService {
     TaskRepository repository;
 
     @POST
+    public Task save(@QueryParam("id") String id) throws JSONException {
+        Task task = null;
+        if (id != null && id.matches("\\d+")) {
+            task = repository.findOne(Long.parseLong(id));
+        }
+        return task == null ? Task.BLANK : task;
+    }
+
+    @POST
     public Task getTask(@QueryParam("id") String id) throws JSONException {
         Task task = null;
         if (id != null && id.matches("\\d+")) {

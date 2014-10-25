@@ -36,12 +36,12 @@ public class TaskRepositoryImpl implements TaskRepositoryCustom {
         }
     }
 
-    @Override
-    public Task findByEmailAuthor(Customer author) {
-        TypedQuery<Task> query = entityManager.createQuery("select t from Task t where t.author = :author", Task.class);
-        query.setParameter("author", author);
-        return query.getSingleResult();
-    }
+//    @Override
+//    public Task findByEmailAuthor(Customer author) {
+//        TypedQuery<Task> query = entityManager.createQuery("select t from Task t where t.author = :author", Task.class);
+//        query.setParameter("author", author);
+//        return query.getSingleResult();
+//    }
 
     @Override
     public List<Task> findByTags(List<String> tags) {

@@ -11,7 +11,7 @@ public interface TaskRepositoryCustom {
 
     Task save(Task task);
 
-    Task findByEmailAuthor(Customer author);
+//    Task findByEmailAuthor(Customer author);
 
     List<Task> findByTags(List<String> tags);
 }
