@@ -10,6 +10,7 @@ import java.io.Serializable;
 @javax.persistence.Entity
 public class Customer extends Entity implements Serializable {
     private String firstname, lastname;
+
     @Column(unique = true)
     private Email email;
 

@@ -1,22 +1,33 @@
 package org.octocode.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.util.Assert;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-@XmlRootElement
+//@XmlRootElement
 @javax.persistence.Entity
 public class Task extends Entity implements Serializable {
 
     public final static Task BLANK = new Task();
 
-    private String name, description;
-    private Integer rating;
+    private String name;
+
+    @Column(nullable = false)
+    private String description;
+
+    @Column(nullable = false)
+    private Integer rating = 3;
+
     private Customer author;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -59,6 +70,7 @@ public class Task extends Entity implements Serializable {
         return name;
     }
 
+    @JsonProperty ("name")
     public void setName(String name) {
         this.name = name;
     }
@@ -67,6 +79,7 @@ public class Task extends Entity implements Serializable {
         return description;
     }
 
+    @JsonProperty ("description")
     public void setDescription(String description) {
         this.description = description;
     }
@@ -75,6 +88,7 @@ public class Task extends Entity implements Serializable {
         return rating;
     }
 
+    @JsonProperty ("rating")
     public void setRating(Integer rating) {
         this.rating = rating;
     }

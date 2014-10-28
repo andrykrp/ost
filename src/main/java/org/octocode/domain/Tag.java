@@ -1,14 +1,13 @@
 package org.octocode.domain;
 
 import javax.persistence.Column;
-import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 @XmlRootElement
 @javax.persistence.Entity
 public class Tag extends Entity implements Serializable {
-    @Column(unique=true)
+    @Column(unique = true)
     private String name;
 
     private Boolean hidden = false, active = true, top = false;

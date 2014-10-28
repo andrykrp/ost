@@ -1,9 +1,7 @@
 package org.octocode.repositories;
 
-import org.octocode.domain.Customer;
 import org.octocode.domain.Tag;
 import org.octocode.domain.Task;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -13,7 +11,6 @@ import javax.persistence.criteria.*;
 import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.Metamodel;
 import java.util.List;
-import java.util.Set;
 
 public class TaskRepositoryImpl implements TaskRepositoryCustom {
     @PersistenceContext
