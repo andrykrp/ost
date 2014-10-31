@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@XmlRootElement
 @javax.persistence.Entity
 public class Tag extends Entity implements Serializable {
 
@@ -16,11 +15,11 @@ public class Tag extends Entity implements Serializable {
             inverseJoinColumns = { @JoinColumn(name = "task_id", nullable = false, updatable = false) })
     private Set<Task> tasks = new HashSet<>();
 
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinTable(name = "part_tag", joinColumns = {
-//            @JoinColumn(name = "tag_id", nullable = false, updatable = false) },
-//            inverseJoinColumns = { @JoinColumn(name = "part_id", nullable = false, updatable = false) })
-//    private Set<Part> parts = new HashSet<>();
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "part_tag", joinColumns = {
+            @JoinColumn(name = "tag_id", nullable = false, updatable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "part_id", nullable = false, updatable = false) })
+    private Set<Part> parts = new HashSet<>();
 
     @Column(unique = true)
     private String name;
@@ -79,13 +78,13 @@ public class Tag extends Entity implements Serializable {
         this.tasks = tasks;
     }
 
-//    public Set<Part> getParts() {
-//        return parts;
-//    }
-//
-//    public void setParts(Set<Part> parts) {
-//        this.parts = parts;
-//    }
+    public Set<Part> getParts() {
+        return parts;
+    }
+
+    public void setParts(Set<Part> parts) {
+        this.parts = parts;
+    }
 
     @Override
     public boolean equals(Object o) {

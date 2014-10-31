@@ -19,6 +19,7 @@ public class ApplicationInitialize {
     PartRepository groupRepository;
 
     public void init() {
+        tagRepository.deleteAll();
         for (int j = 1; j < 50; j++) {
             Tag tag = new Tag("tag-" + j);
             tagRepository.save(tag);

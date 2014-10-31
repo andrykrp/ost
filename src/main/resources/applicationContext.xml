@@ -55,9 +55,10 @@
         </property>
         <property name="jpaProperties">
             <props>
-                <prop key="hibernate.hbm2ddl.auto">create</prop>
-                <prop key="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</prop>
-                <prop key="hibernate.jdbc.batch_size">0</prop>
+                <!--<prop key="hibernate.hbm2ddl.auto">create-drop</prop>-->
+                <prop key="spring.jpa.properties.hibernate.hbm2ddl.auto">create-drop</prop>
+                <prop key="spring.jpa.properties.hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</prop>
+                <prop key="spring.jpa.properties.hibernate.jdbc.batch_size">0</prop>
             </props>
         </property>
     </bean>

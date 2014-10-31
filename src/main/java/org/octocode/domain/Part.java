@@ -16,8 +16,8 @@ public class Part extends Entity implements Serializable {
 
     private String name;
 
-//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parts")
-//    private Set<Tag> tags = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parts")
+    private Set<Tag> tags = new HashSet<>();
 
     protected Part() {
     }
@@ -32,9 +32,9 @@ public class Part extends Entity implements Serializable {
 //        this.tags.add(tag);
     }
 
-//    public Set<Tag> getTags() {
-//        return Collections.unmodifiableSet(tags);
-//    }
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
+    }
 
     public String getName() {
         return name;
@@ -45,8 +45,8 @@ public class Part extends Entity implements Serializable {
         this.name = name;
     }
 
-//    @Override
-//    public String toString() {
-//        return String.format("%s[%d]", name, (tags == null ? 0 : tags.size()));
-//    }
+    @Override
+    public String toString() {
+        return String.format("%s[%d]", name, (tags == null ? 0 : tags.size()));
+    }
 }
