@@ -1,4 +1,4 @@
-package org.octocode.services.exception;
+package org.octocode.exception;
 
 public class ProcessingException extends RuntimeException {
     public ProcessingException(String message, Exception exception) {

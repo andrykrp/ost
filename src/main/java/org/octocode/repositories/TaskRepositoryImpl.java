@@ -1,5 +1,6 @@
 package org.octocode.repositories;
 
+import org.octocode.domain.Part;
 import org.octocode.domain.Tag;
 import org.octocode.domain.Task;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,7 +42,7 @@ public class TaskRepositoryImpl implements TaskRepositoryCustom {
 //    }
 
     @Override
-    public List<Task> findByTags(List<String> tags) {
+    public List<Task> findByTags(List<String> tags, List<String> orderGroups, List<String> orderFields) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Task> criteriaQuery = criteriaBuilder.createQuery(Task.class);
 
@@ -55,8 +56,13 @@ public class TaskRepositoryImpl implements TaskRepositoryCustom {
                 criteriaBuilder.in(join.get("name")).value(tags)
         );
 
-        criteriaQuery.groupBy(taskRoot.get("id"));
-        criteriaQuery.having(criteriaBuilder.equal(criteriaBuilder.count(taskRoot), tags.size()));
+//        SetJoin<Tag, Part> groupJoin = join.joinSet("tags", JoinType.LEFT);
+//        criteriaQuery.where(
+//                criteriaBuilder.in(join.get("name")).value(tags)
+//        );
+
+//        criteriaQuery.groupBy(taskRoot.get("id"));
+//        criteriaQuery.having(criteriaBuilder.equal(criteriaBuilder.count(taskRoot), tags.size()));
 
         TypedQuery<Task> typedQuery = entityManager.createQuery(criteriaQuery);
 

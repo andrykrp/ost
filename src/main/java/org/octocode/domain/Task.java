@@ -14,7 +14,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-//@XmlRootElement
 @javax.persistence.Entity
 public class Task extends Entity implements Serializable {
 
@@ -30,8 +29,7 @@ public class Task extends Entity implements Serializable {
 
     private Customer author;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @JoinColumn(name = "task_id")
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tasks")
     private Set<Tag> tags = new HashSet<>();
 
     protected Task() {
