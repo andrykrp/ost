@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @XmlRootElement
 @javax.persistence.Entity
-public class Customer extends Entity implements Serializable {
+public class Customer extends Eid implements Serializable {
     private String firstname, lastname;
 
     @Column(unique = true)

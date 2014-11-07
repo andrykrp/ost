@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public class Entity {
+public class Eid {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -23,7 +23,7 @@ public class Entity {
         if (this.id == null || obj == null || !(this.getClass().equals(obj.getClass()))) {
             return false;
         }
-        Entity that = (Entity) obj;
+        Eid that = (Eid) obj;
         return this.id.equals(that.getId());
     }
 

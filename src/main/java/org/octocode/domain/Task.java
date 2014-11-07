@@ -3,19 +3,14 @@ package org.octocode.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.util.Assert;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-@javax.persistence.Entity
-public class Task extends Entity implements Serializable {
+@Entity
+public class Task extends Eid implements Serializable {
 
     public final static Task BLANK = new Task();
 

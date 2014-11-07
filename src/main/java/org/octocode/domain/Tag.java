@@ -1,13 +1,12 @@
 package org.octocode.domain;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @javax.persistence.Entity
-public class Tag extends Entity implements Serializable {
+public class Tag extends Eid implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "task_tag", joinColumns = {

@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @javax.persistence.Entity
-public class Part extends Entity implements Serializable {
+public class Part extends Eid implements Serializable {
 
     public final static Part BLANK = new Part();
 
