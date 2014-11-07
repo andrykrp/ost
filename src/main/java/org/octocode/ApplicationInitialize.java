@@ -19,11 +19,13 @@ public class ApplicationInitialize {
     PartRepository groupRepository;
 
     public void init() {
-        tagRepository.deleteAll();
         for (int j = 1; j < 50; j++) {
             Tag tag = new Tag("tag-" + j);
             tagRepository.save(tag);
         }
+
+//        Tag t = new Tag("777");
+//        tagRepository.save(t);
 
         for (int i = 1; i < 15; i++) {
             int rating = i % 5 + 1;
