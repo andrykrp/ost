@@ -10,14 +10,14 @@ public class Tag extends Eid implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "task_tag", joinColumns = {
-            @JoinColumn(name = "tag_id", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "task_id", nullable = false, updatable = false) })
+            @JoinColumn(name = "tag_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "task_id", nullable = false, updatable = false)})
     private Set<Task> tasks = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "part_tag", joinColumns = {
-            @JoinColumn(name = "tag_id", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "part_id", nullable = false, updatable = false) })
+            @JoinColumn(name = "tag_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "part_id", nullable = false, updatable = false)})
     private Set<Part> parts = new HashSet<>();
 
     @Column(unique = true)

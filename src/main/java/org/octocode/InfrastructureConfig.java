@@ -1,8 +1,5 @@
 package org.octocode;
 
-import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
-
 import org.octocode.domain.Task;
 import org.octocode.repositories.TaskRepository;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +12,9 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
 
 /**
  * Common infrastructure configuration class to setup a Spring container and infrastructure components like a
@@ -31,9 +31,8 @@ public class InfrastructureConfig {
     /**
      * Bootstraps an in-memory HSQL database.
      *
-     * @return
-     *      ://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/jdbc.html#jdbc-embedded-database
-     *      -support
+     * @return ://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/jdbc.html#jdbc-embedded-database
+     * -support
      */
     @Bean
     public DataSource dataSource() {
@@ -49,7 +48,6 @@ public class InfrastructureConfig {
      */
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setDatabase(Database.HSQL);
         vendorAdapter.setGenerateDdl(true);
@@ -64,7 +62,6 @@ public class InfrastructureConfig {
 
     @Bean
     public PlatformTransactionManager transactionManager() {
-
         JpaTransactionManager txManager = new JpaTransactionManager();
         txManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return txManager;

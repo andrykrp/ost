@@ -1,6 +1,5 @@
 package org.octocode.repositories;
 
-import org.octocode.domain.Part;
 import org.octocode.domain.Tag;
 import org.octocode.domain.Task;
 import org.springframework.transaction.annotation.Transactional;

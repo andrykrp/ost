@@ -3,7 +3,9 @@ package org.octocode.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.util.Assert;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
@@ -40,7 +42,7 @@ public class Part extends Eid implements Serializable {
         return name;
     }
 
-    @JsonProperty ("name")
+    @JsonProperty("name")
     public void setName(String name) {
         this.name = name;
     }

@@ -63,7 +63,7 @@ public class Task extends Eid implements Serializable {
         return name;
     }
 
-    @JsonProperty ("name")
+    @JsonProperty("name")
     public void setName(String name) {
         this.name = name;
     }
@@ -72,7 +72,7 @@ public class Task extends Eid implements Serializable {
         return description;
     }
 
-    @JsonProperty ("description")
+    @JsonProperty("description")
     public void setDescription(String description) {
         this.description = description;
     }
@@ -81,7 +81,7 @@ public class Task extends Eid implements Serializable {
         return rating;
     }
 
-    @JsonProperty ("rating")
+    @JsonProperty("rating")
     public void setRating(Integer rating) {
         this.rating = rating;
     }

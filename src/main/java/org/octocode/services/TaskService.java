@@ -39,7 +39,7 @@ public class TaskService {
 
     @POST
     @Path("filter")
-    public List<Task> getTasks(@QueryParam("tag") List<String> tags, @QueryParam("orderGroups") List<String> orderGroups, @QueryParam("orderFields")  List<String> orderFields) throws JSONException {
+    public List<Task> getTasks(@QueryParam("tag") List<String> tags, @QueryParam("orderGroups") List<String> orderGroups, @QueryParam("orderFields") List<String> orderFields) throws JSONException {
         orderGroups.add("group-1");
         orderGroups.add("group-3");
         List<Task> list = repository.findByTags(tags, orderGroups, orderFields);
