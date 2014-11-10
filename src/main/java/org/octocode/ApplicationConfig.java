@@ -9,7 +9,4 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories
 @Import(InfrastructureConfig.class)
 public class ApplicationConfig {
-    public ApplicationConfig() {
-        System.out.printf("d");
-    }
 }
