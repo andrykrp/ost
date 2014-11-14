@@ -8,13 +8,13 @@ import java.util.Set;
 @javax.persistence.Entity
 public class Tag extends Eid implements Serializable {
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "task_tag", joinColumns = {
             @JoinColumn(name = "tag_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "task_id", nullable = false, updatable = false)})
     private Set<Task> tasks = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "part_tag", joinColumns = {
             @JoinColumn(name = "tag_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "part_id", nullable = false, updatable = false)})
@@ -85,6 +85,14 @@ public class Tag extends Eid implements Serializable {
         this.parts = parts;
     }
 
+    public void add(Task task) {
+        tasks.add(task);
+    }
+
+    public void add(Part part) {
+        parts.add(part);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -92,6 +100,8 @@ public class Tag extends Eid implements Serializable {
         if (!o.equals(o)) return false;
 
         Tag tag = (Tag) o;
+
+        if (id != null && id.equals(tag.id)) return true;
 
         if (!name.equals(tag.name)) return false;
         if (top != null ? !top.equals(tag.top) : tag.top != null) return false;
@@ -105,6 +115,7 @@ public class Tag extends Eid implements Serializable {
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + name.hashCode();
+        result = 31 * result + (id != null ? id.hashCode() : 0);
         result = 31 * result + (hidden != null ? hidden.hashCode() : 0);
         result = 31 * result + (active != null ? active.hashCode() : 0);
         result = 31 * result + (top != null ? top.hashCode() : 0);

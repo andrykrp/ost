@@ -18,7 +18,7 @@ public class Part extends Eid implements Serializable {
 
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parts")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "parts")
     private Set<Tag> tags = new HashSet<>();
 
     protected Part() {
@@ -50,5 +50,27 @@ public class Part extends Eid implements Serializable {
     @Override
     public String toString() {
         return String.format("%s[%d]", name, (tags == null ? 0 : tags.size()));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Part)) return false;
+        if (!o.equals(o)) return false;
+
+        Part part = (Part) o;
+
+        if (id != null && id.equals(part.id)) return true;
+        if (!name.equals(part.name)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (id != null ? id.hashCode() : 0);
+        result = 31 * result + name.hashCode();
+        return result;
     }
 }

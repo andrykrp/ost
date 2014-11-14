@@ -9,7 +9,7 @@ import javax.persistence.MappedSuperclass;
 public class Eid {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    protected Long id;
 
     public Long getId() {
         return id;

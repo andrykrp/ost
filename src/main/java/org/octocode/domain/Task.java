@@ -24,7 +24,7 @@ public class Task extends Eid implements Serializable {
 
     private Customer author;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tasks")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "tasks")
     private Set<Tag> tags = new HashSet<>();
 
     protected Task() {
@@ -91,7 +91,34 @@ public class Task extends Eid implements Serializable {
         return (name == null ? "" : String.format("%s - ", name)) + description;
     }
 
-//    public String getJSON() throws JSONException {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Task)) return false;
+        if (!o.equals(o)) return false;
+
+        Task task = (Task) o;
+
+        if (id != null && id.equals(task.id)) return true;
+
+        if (!description.equals(task.description)) return false;
+        if (name != null ? !name.equals(task.name) : task.name != null) return false;
+        if (rating != null ? !rating.equals(task.rating) : task.rating != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (id != null ? id.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + description.hashCode();
+        result = 31 * result + (rating != null ? rating.hashCode() : 0);
+        return result;
+    }
+
+    //    public String getJSON() throws JSONException {
 //        JSONObject json = new JSONObject();
 //        json.put("name", name);
 //        json.put("description", description);
