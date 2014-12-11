@@ -1,8 +1,8 @@
 package org.octocode;
 
-import org.octocode.domain.Part;
-import org.octocode.domain.Tag;
-import org.octocode.domain.Task;
+import org.octocode.domains.Part;
+import org.octocode.domains.Tag;
+import org.octocode.domains.Task;
 import org.octocode.repositories.PartRepository;
 import org.octocode.repositories.TagRepository;
 import org.octocode.repositories.TaskRepository;

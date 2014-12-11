@@ -1,16 +1,14 @@
 package org.octocode.repositories;
 
-import org.octocode.domain.Part;
-import org.octocode.domain.Tag;
-import org.octocode.domain.Task;
+import org.octocode.domains.Part;
+import org.octocode.domains.Tag;
+import org.octocode.domains.Task;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
-import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.Metamodel;
 import java.util.List;
 
 public class TaskRepositoryImpl implements TaskRepositoryCustom {
@@ -96,15 +94,56 @@ public class TaskRepositoryImpl implements TaskRepositoryCustom {
         subquery.groupBy(fromProject.get("id"));
         subquery.having(criteriaBuilder.equal(criteriaBuilder.count(fromProject), tags.size()));
 
+
+        SetJoin<Task, Tag> tagJoin = from.joinSet("tags", JoinType.INNER);
+        SetJoin<Tag, Part> partJoin = tagJoin.joinSet("parts", JoinType.LEFT);
+
+//        Predicate p = criteriaBuilder.equal(partJoin.<String>get("name"), "fff");
+//        partJoin = partJoin.on(p);
+
+        Predicate p1 = criteriaBuilder.in(path).value(subquery);
+        Predicate p2 = criteriaBuilder.like(criteriaBuilder.lower(partJoin.<String>get("name")), criteriaBuilder.parameter(String.class, ("partName")));
+
+        select.where(criteriaBuilder.and(p1, p2));
+
+        TypedQuery<Task> typedQuery = entityManager.createQuery(select);
+        typedQuery.setParameter("partName", "group-1");
+
+//        Set<Task> ret = new HashSet<>();
+//        ret.addAll(typedQuery.getResultList());
+
+        return typedQuery.getResultList();
+
+/*
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Task> criteriaQuery = criteriaBuilder.createQuery(Task.class);
+
+        Root<Task> from = criteriaQuery.from(Task.class);
+        CriteriaQuery<Task> select = criteriaQuery.select(from);
+
+        Path<Task> path = from.get("id");
+
+        Subquery<Task> subquery = criteriaQuery.subquery(Task.class);
+        Root<Task> fromProject = subquery.from(Task.class);
+
+        subquery.select(fromProject);
+        SetJoin<Task, Tag> join = fromProject.joinSet("tags", JoinType.INNER);
+        subquery.where(
+                join.get("name").in(tags)
+        );
+        subquery.groupBy(fromProject.get("id"));
+        subquery.having(criteriaBuilder.equal(criteriaBuilder.count(fromProject), tags.size()));
+
         select.where(criteriaBuilder.in(path).value(subquery));
 
         TypedQuery<Task> typedQuery = entityManager.createQuery(select);
         return typedQuery.getResultList();
-
+*/
 
         /*
 
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 CriteriaQuery<Task> criteriaQuery = criteriaBuilder.createQuery(Task.class);
 
 Root<Task> from = criteriaQuery.from(Task.class);
@@ -126,12 +165,15 @@ subquery.having(criteriaBuilder.equal(criteriaBuilder.count(fromProject), tags.s
 SetJoin<Task, Tag> tagJoin = from.joinSet("tags", JoinType.INNER);
 SetJoin<Tag, Part> partJoin = tagJoin.joinSet("parts", JoinType.LEFT);
 
-//select.where();
 select.where(criteriaBuilder.and(criteriaBuilder.in(path).value(subquery),criteriaBuilder.like(criteriaBuilder.lower(partJoin.<String>get("name")), criteriaBuilder.parameter(String.class, ("partName")))));
 
 TypedQuery<Task> typedQuery = entityManager.createQuery(select);
 typedQuery.setParameter("partName", "group-1");
-typedQuery.getResultList();
+
+Set<Task> ret = new HashSet<>();
+ret.addAll(typedQuery.getResultList());
+
+ret
 
         */
     }

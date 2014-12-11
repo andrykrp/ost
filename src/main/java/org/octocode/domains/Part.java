@@ -1,9 +1,8 @@
-package org.octocode.domain;
+package org.octocode.domains;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.util.Assert;
 
-import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import java.io.Serializable;

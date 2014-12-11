@@ -1,4 +1,4 @@
-package org.octocode.domain;
+package org.octocode.domains;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

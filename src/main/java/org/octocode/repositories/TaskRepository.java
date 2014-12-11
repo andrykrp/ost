@@ -1,6 +1,6 @@
 package org.octocode.repositories;
 
-import org.octocode.domain.Task;
+import org.octocode.domains.Task;
 import org.springframework.data.repository.Repository;
 
 import java.util.List;

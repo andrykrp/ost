@@ -1,4 +1,4 @@
-package org.octocode.domain;
+package org.octocode.domains;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.util.Assert;

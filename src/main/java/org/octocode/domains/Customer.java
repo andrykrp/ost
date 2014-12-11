@@ -1,4 +1,4 @@
-package org.octocode.domain;
+package org.octocode.domains;
 
 import org.springframework.util.Assert;
 
