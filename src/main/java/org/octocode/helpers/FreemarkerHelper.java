@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public class FreemarkerHelper {
-    public static void foo (ServletContext context) {
+    public static String foo (ServletContext context) {
         Configuration cfg = new Configuration();
         cfg.setServletContextForTemplateLoading(context, "WEB-INF/templates");
         try {
@@ -32,19 +32,26 @@ public class FreemarkerHelper {
 
             data.put("countries", countries);
 
+            
+            Writer str = new StringWriter();
+            template.process(data, str);
+            str.flush();
+
+            return str.toString();
 
             // Console output
-            Writer out = new OutputStreamWriter(System.out);
-            template.process(data, out);
-            out.flush();
+//            Writer out = new OutputStreamWriter(System.out);
+//            template.process(data, out);
+//            out.flush();
 
             // File output
-            Writer file = new FileWriter(new File("C:\\temp\\FTL_helloworld.txt"));
-            template.process(data, file);
-            file.flush();
-            file.close();
+//            Writer file = new FileWriter(new File("C:\\temp\\FTL_helloworld.txt"));
+//            template.process(data, file);
+//            file.flush();
+//            file.close();
         } catch (IOException | TemplateException e) {
             e.printStackTrace();
         }
+        return null;
     }
 }

@@ -11,5 +11,5 @@ public interface TaskRepositoryCustom {
 
 //    Task findByEmailAuthor(Customer author);
 
-    List<Task> findByTags(List<String> tags, List<String> orderGroups, List<String> orderFields);
+    List<Task> findByTags(String sql, List<String> tags, List<String> orderGroups, List<String> orderFields);
 }

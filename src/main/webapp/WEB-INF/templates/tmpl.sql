@@ -13,19 +13,5 @@ WHERE (task0_.id IN
           FROM Task task5_
           INNER JOIN task_tag tags6_ ON task5_.id=tags6_.task_id
           INNER JOIN Tag tag7_ ON tags6_.tag_id=tag7_.id
-          WHERE tag7_.name IN (?,
-                               ?,
-                               ?)
-          GROUP BY task5_.id HAVING count(task5_.id)=3))
-  AND (lower(part4_.name) LIKE ?)
-
---         <html>
--- <head>
---     <title>Welcome!</title>
--- </head>
--- <body>
--- <h1>Welcome ${message}!</h1>
--- <p>Our latest product:
---     <a href="${latestProduct.url}">${latestProduct.name}</a>!
--- </body>
--- </html>
+          WHERE tag7_.name IN (?)
+          GROUP BY task5_.id HAVING count(task5_.id)=2))

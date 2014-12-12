@@ -3,15 +3,24 @@ package org.octocode.repositories;
 import org.octocode.domains.Part;
 import org.octocode.domains.Tag;
 import org.octocode.domains.Task;
+import org.octocode.helpers.FreemarkerHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
+import javax.sql.DataSource;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaskRepositoryImpl implements TaskRepositoryCustom {
+    @Autowired
+    private DataSource dataSource;
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -41,7 +50,23 @@ public class TaskRepositoryImpl implements TaskRepositoryCustom {
 //    }
 
     @Override
-    public List<Task> findByTags(List<String> tags, List<String> orderGroups, List<String> orderFields) {
+    public List<Task> findByTags(String sql, List<String> tags, List<String> orderGroups, List<String> orderFields) {
+//        TypedQuery<Task> q = entityManager.createQuery(sql, Task.class);
+        Connection conn = null;
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+//            Array arr = new
+            ps.setArray(1, conn.createArrayOf("VARCHAR", tags.toArray(new String[0])));
+//            ps.setString(2, "nnm");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                System.out.println(rs.getObject(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
         /*CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Task> criteriaQuery = criteriaBuilder.createQuery(Task.class);
 
@@ -75,7 +100,7 @@ public class TaskRepositoryImpl implements TaskRepositoryCustom {
         return typedQuery.getResultList();*/
 
 
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        /*CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Task> criteriaQuery = criteriaBuilder.createQuery(Task.class);
 
         Root<Task> from = criteriaQuery.from(Task.class);
@@ -113,7 +138,7 @@ public class TaskRepositoryImpl implements TaskRepositoryCustom {
 //        ret.addAll(typedQuery.getResultList());
 
         return typedQuery.getResultList();
-
+*/
 /*
 
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();

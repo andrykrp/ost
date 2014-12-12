@@ -44,10 +44,10 @@ public class TaskService {
     @POST
     @Path("filter")
     public List<Task> getTasks(@Context ServletContext context, @QueryParam("tag") List<String> tags, @QueryParam("orderGroups") List<String> orderGroups, @QueryParam("orderFields") List<String> orderFields) throws JSONException {
-//        FreemarkerHelper.foo(context);
         orderGroups.add("group-1");
         orderGroups.add("group-3");
-        List<Task> list = repository.findByTags(tags, orderGroups, orderFields);
+        String sql = FreemarkerHelper.foo(context);
+        List<Task> list = repository.findByTags(sql, tags, orderGroups, orderFields);
         return list == null ? new ArrayList<Task>() : list;
     }
 
