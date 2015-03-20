@@ -2,12 +2,12 @@ package org.octocode.services;
 
 import org.codehaus.jettison.json.JSONException;
 import org.octocode.domains.Task;
-import org.octocode.helpers.FreemarkerHelper;
+import org.octocode.helpers.SQLHelper;
+import org.octocode.helpers.SQLTemplate;
 import org.octocode.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.context.ServletContextAware;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.POST;
@@ -43,10 +43,11 @@ public class TaskService {
 
     @POST
     @Path("filter")
+
     public List<Task> getTasks(@Context ServletContext context, @QueryParam("tag") List<String> tags, @QueryParam("orderGroups") List<String> orderGroups, @QueryParam("orderFields") List<String> orderFields) throws JSONException {
         orderGroups.add("group-1");
         orderGroups.add("group-3");
-        String sql = FreemarkerHelper.foo(context);
+        String sql = SQLHelper.getSQL(context, SQLTemplate.BY_TAGS, tags, orderGroups, orderFields);
         List<Task> list = repository.findByTags(sql, tags, orderGroups, orderFields);
         return list == null ? new ArrayList<Task>() : list;
     }

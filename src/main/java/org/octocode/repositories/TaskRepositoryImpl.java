@@ -1,20 +1,13 @@
 package org.octocode.repositories;
 
-import org.octocode.domains.Part;
-import org.octocode.domains.Tag;
+import org.hibernate.Session;
 import org.octocode.domains.Task;
-import org.octocode.helpers.FreemarkerHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
 import javax.sql.DataSource;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TaskRepositoryImpl implements TaskRepositoryCustom {
@@ -50,23 +43,26 @@ public class TaskRepositoryImpl implements TaskRepositoryCustom {
 //    }
 
     @Override
+    @Transactional (readOnly = true)
     public List<Task> findByTags(String sql, List<String> tags, List<String> orderGroups, List<String> orderFields) {
-//        TypedQuery<Task> q = entityManager.createQuery(sql, Task.class);
-        Connection conn = null;
-        try {
-            conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-//            Array arr = new
-            ps.setArray(1, conn.createArrayOf("VARCHAR", tags.toArray(new String[0])));
-//            ps.setString(2, "nnm");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                System.out.println(rs.getObject(1));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return new ArrayList<>();
+//        Connection conn;
+//        try {
+//            conn = dataSource.getConnection();
+//            Statement ps = conn.createStatement();
+//            ResultSet rs = ps.executeQuery(sql);
+        System.out.println("SQL: " + sql);
+//            while (rs.next()) {
+//                System.out.println(rs.getObject(1) + " " + rs.getObject(4));
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        Session session = (Session) entityManager.getDelegate();
+
+        return entityManager.createNativeQuery(sql, Task.class).getResultList();
+//        return session.createSQLQuery(sql).list();
+//        return (List<Task>) entityManager.createQuery(sql).getResultList();
+        //        TypedQuery<Task> q = entityManager.createQuery(sql, Task.class);
         /*CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Task> criteriaQuery = criteriaBuilder.createQuery(Task.class);
 

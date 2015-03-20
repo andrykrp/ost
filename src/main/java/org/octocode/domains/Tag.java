@@ -1,5 +1,7 @@
 package org.octocode.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -69,6 +71,7 @@ public class Tag extends Eid implements Serializable {
         return name;
     }
 
+    @JsonIgnore
     public Set<Task> getTasks() {
         return tasks;
     }
@@ -77,6 +80,7 @@ public class Tag extends Eid implements Serializable {
         this.tasks = tasks;
     }
 
+    @JsonIgnore
     public Set<Part> getParts() {
         return parts;
     }

@@ -1,6 +1,7 @@
 package org.octocode.domains;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class Task extends Eid implements Serializable {
     private Customer author;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "tasks")
+    @JsonManagedReference
     private Set<Tag> tags = new HashSet<>();
 
     protected Task() {
