@@ -6,4 +6,5 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public interface TagRepository extends CrudRepository<Tag, Long> {
+    Tag findByName(String name);
 }

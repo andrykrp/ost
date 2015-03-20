@@ -44,11 +44,9 @@ public class TaskService {
     @POST
     @Path("filter")
 
-    public List<Task> getTasks(@Context ServletContext context, @QueryParam("tag") List<String> tags, @QueryParam("orderGroups") List<String> orderGroups, @QueryParam("orderFields") List<String> orderFields) throws JSONException {
-        orderGroups.add("group-1");
-        orderGroups.add("group-3");
-        String sql = SQLHelper.getSQL(context, SQLTemplate.BY_TAGS, tags, orderGroups, orderFields);
-        List<Task> list = repository.findByTags(sql, tags, orderGroups, orderFields);
+    public List<Task> getTasks(@Context ServletContext context, @QueryParam("tag") List<String> tags, @QueryParam("group") List<String> groups, @QueryParam("field") List<String> fields) throws JSONException {
+        String sql = SQLHelper.getSQL(context, SQLTemplate.BY_TAGS, tags, groups, fields);
+        List<Task> list = repository.findByTags(sql, tags, groups, fields);
         return list == null ? new ArrayList<Task>() : list;
     }
 

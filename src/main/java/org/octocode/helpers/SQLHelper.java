@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SQLHelper {
-    public static String getSQL(ServletContext context, SQLTemplate sqlt, List<String> tags, List<String> orderGroups, List<String> orderFields) {
+    public static String getSQL(ServletContext context, SQLTemplate sqlt, List<String> tags, List<String> groups, List<String> fields) {
         Configuration cfg = new Configuration();
         cfg.setServletContextForTemplateLoading(context, "WEB-INF/templates");
         try {
@@ -24,9 +24,8 @@ public class SQLHelper {
 
             data.put("tags", join(tags, ","));
             data.put("tags_count", tags.size());
-            data.put("orderGroups", join(orderGroups, ","));
-            data.put("orderFields", join(orderFields, ","));
-
+            data.put("groups", groups);
+            data.put("fields", fields);
 
             Writer str = new StringWriter();
             template.process(data, str);
