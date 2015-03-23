@@ -53,7 +53,7 @@ public class TaskService {
         data.put("fields", fields);
         data.put("groups", groups);
         String sql = SQLHelper.getSQL(context, SQLTemplate.BY_TAGS, data);
-        List<Task> list = repository.findByTags(sql, tags, groups, fields);
+        List<Task> list = repository.findByTags(sql);
         return list == null ? new ArrayList<Task>() : list;
     }
 

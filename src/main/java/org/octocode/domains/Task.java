@@ -122,14 +122,4 @@ public class Task extends Eid implements Serializable {
         result = 31 * result + (rating != null ? rating.hashCode() : 0);
         return result;
     }
-
-    //    public String getJSON() throws JSONException {
-//        JSONObject json = new JSONObject();
-//        json.put("name", name);
-//        json.put("description", description);
-//        json.put("rating", rating);
-//        json.put("tags", tags);
-//
-//        return json.toString();
-//    }
 }
