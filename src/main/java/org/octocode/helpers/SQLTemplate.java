@@ -1,8 +1,7 @@
 package org.octocode.helpers;
 
 public enum SQLTemplate {
-    BY_TAGS("tmpl.ftl")
-    ;
+    BY_TAGS("tmpl.ftl");
 
 
     private String name;

@@ -8,24 +8,14 @@ import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class SQLHelper {
-    public static String getSQL(ServletContext context, SQLTemplate sqlt, List<String> tags, List<String> groups, List<String> fields) {
-        Configuration cfg = new Configuration();
-        cfg.setServletContextForTemplateLoading(context, "WEB-INF/templates");
+    public static String getSQL(ServletContext context, SQLTemplate sql, Map<String, Object> data) {
         try {
-            Template template = cfg.getTemplate(sqlt.getName());
-
-            Map<String, Object> data = new HashMap<String, Object>();
-
-            data.put("tags", join(tags, ","));
-            data.put("tags_count", tags.size());
-            data.put("groups", groups);
-            data.put("fields", fields);
+            Template template = getTemplate(context, sql);
 
             Writer str = new StringWriter();
             template.process(data, str);
@@ -34,8 +24,14 @@ public class SQLHelper {
             return str.toString();
         } catch (IOException | TemplateException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
+    }
+
+    private static Template getTemplate(ServletContext context, SQLTemplate sql) throws IOException {
+        Configuration cfg = new Configuration();
+        cfg.setServletContextForTemplateLoading(context, "WEB-INF/templates");
+        return cfg.getTemplate(sql.getName());
     }
 
     private static String join(List<String> list, String separator) {

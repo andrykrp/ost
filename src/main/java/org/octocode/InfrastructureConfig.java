@@ -1,7 +1,6 @@
 package org.octocode;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -71,7 +70,7 @@ public class InfrastructureConfig {
             e.printStackTrace();
         }
 
-        factory.setJpaProperties(new Properties(){{
+        factory.setJpaProperties(new Properties() {{
             put("hibernate.hbm2ddl.auto", "create-drop");
         }});
         return factory;

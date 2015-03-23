@@ -1,6 +1,5 @@
 package org.octocode.repositories;
 
-import org.hibernate.Session;
 import org.octocode.domains.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +29,7 @@ public class TaskRepositoryImpl implements TaskRepositoryCustom {
             entityManager.flush();
             return task;
         } else {
-                Task t = entityManager.merge(task);
+            Task t = entityManager.merge(task);
             return t;
         }
     }
@@ -43,7 +42,7 @@ public class TaskRepositoryImpl implements TaskRepositoryCustom {
 //    }
 
     @Override
-    @Transactional (readOnly = true)
+    @Transactional(readOnly = true)
     public List<Task> findByTags(String sql, List<String> tags, List<String> orderGroups, List<String> orderFields) {
 //        Connection conn;
 //        try {

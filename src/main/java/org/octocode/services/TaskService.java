@@ -17,7 +17,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Path("task")
@@ -43,9 +45,14 @@ public class TaskService {
 
     @POST
     @Path("filter")
-
-    public List<Task> getTasks(@Context ServletContext context, @QueryParam("tag") List<String> tags, @QueryParam("group") List<String> groups, @QueryParam("field") List<String> fields) throws JSONException {
-        String sql = SQLHelper.getSQL(context, SQLTemplate.BY_TAGS, tags, groups, fields);
+    public List<Task> getTasks(@Context ServletContext context,
+                               @QueryParam("tag") List<String> tags, @QueryParam("group") List<String> groups,
+                               @QueryParam("field") List<String> fields) throws JSONException {
+        Map<String, Object> data = new HashMap<>();
+        data.put("tags", tags);
+        data.put("fields", fields);
+        data.put("groups", groups);
+        String sql = SQLHelper.getSQL(context, SQLTemplate.BY_TAGS, data);
         List<Task> list = repository.findByTags(sql, tags, groups, fields);
         return list == null ? new ArrayList<Task>() : list;
     }
